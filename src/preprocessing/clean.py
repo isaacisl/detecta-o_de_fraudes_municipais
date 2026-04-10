@@ -98,6 +98,19 @@ def preprocessar_candidatos(ano: int) -> pd.DataFrame:
     mapa_genero = {"MASCULINO": "M", "FEMININO": "F"}
     df["GENERO"] = df["DS_GENERO"].map(mapa_genero).fillna("Outro")
 
+    # Deduplicação: candidatos do 2º turno aparecem com 2 registros (um por turno).
+    # Mantém apenas o resultado final — prioridade: Eleito > Não Eleito > 2o Turno > demais.
+    prioridade = {"Eleito": 0, "Não Eleito": 1, "2o Turno": 2, "Indefinido": 3}
+    antes = len(df)
+    df["_prio"] = df["RESULTADO_SIMPLIFICADO"].map(prioridade).fillna(9)
+    df = (df.sort_values("_prio")
+            .drop_duplicates(subset="SQ_CANDIDATO", keep="first")
+            .drop(columns="_prio")
+            .reset_index(drop=True))
+    removidos = antes - len(df)
+    if removidos:
+        log.info("[candidatos/%d] Deduplicação 2º turno: %d duplicatas removidas", ano, removidos)
+
     log.info("[candidatos/%d] %d linhas | nulos por coluna-chave:", ano, len(df))
     for col in ["DS_SIT_TOT_TURNO", "DS_GENERO", "DS_GRAU_INSTRUCAO"]:
         if col in df.columns:
