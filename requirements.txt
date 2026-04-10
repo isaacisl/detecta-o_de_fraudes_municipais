@@ -1,0 +1,27 @@
+# Processamento paralelo
+pyspark>=3.5.0
+dask[dataframe]>=2024.1.0
+
+# Análise de dados
+pandas>=2.1.0
+numpy>=1.26.0
+pyarrow>=14.0.0      # suporte a Parquet
+
+# Machine Learning / Anomalias
+scikit-learn>=1.4.0
+
+# Banco de dados
+psycopg2-binary>=2.9.0
+sqlalchemy>=2.0.0
+
+# Visualização
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Jupyter
+jupyterlab>=4.0.0
+ipykernel>=6.0.0
+
+# Utilitários
+tqdm>=4.66.0
+python-dotenv>=1.0.0

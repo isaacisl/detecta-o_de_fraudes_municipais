@@ -1,0 +1,40 @@
+# Ambiente virtual
+.venv/
+env/
+venv/
+
+# Dados brutos (não versionar — arquivos grandes)
+data/raw/
+data/processed/
+*.csv
+*.parquet
+*.xlsx
+*.zip
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs e temporários
+*.log
+*.tmp
+.DS_Store
+
+# Variáveis de ambiente / credenciais
+.env
+*.env
+secrets.json
