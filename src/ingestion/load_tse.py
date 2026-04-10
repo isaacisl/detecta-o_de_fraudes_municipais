@@ -49,13 +49,26 @@ COLUNAS_POR_DATASET = {
 
 
 def listar_csvs(dataset: str, ano: int) -> list[Path]:
-    """Retorna todos os CSVs extraídos para um dataset/ano."""
+    """
+    Retorna os CSVs a processar para um dataset/ano.
+
+    O ZIP do TSE contém um arquivo _BRASIL.csv (consolidado) e 26 arquivos
+    por UF com o mesmo conteúdo. Usamos apenas o _BRASIL quando disponível
+    para evitar duplicação. Caso não exista, usamos todos os arquivos por UF.
+    """
     pasta = RAW_DIR / dataset / str(ano)
+
+    brasil = sorted(pasta.glob("*BRASIL*.csv"))
+    if brasil:
+        log.info("Usando arquivo consolidado: %s", brasil[0].name)
+        return brasil
+
     csvs = sorted(pasta.glob("*.csv"))
     if not csvs:
         raise FileNotFoundError(
             f"Nenhum CSV encontrado em {pasta}. Execute download_tse.py primeiro."
         )
+    log.info("Arquivo BRASIL não encontrado — lendo %d arquivos por UF.", len(csvs))
     return csvs
 
 

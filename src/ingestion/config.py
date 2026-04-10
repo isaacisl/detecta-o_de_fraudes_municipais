@@ -35,9 +35,9 @@ ENCODING_POR_ANO = {
     2004: "latin-1",
     2008: "latin-1",
     2012: "latin-1",
-    2016: "utf-8",
-    2020: "utf-8",
-    2024: "utf-8",
+    2016: "latin-1",
+    2020: "latin-1",
+    2024: "latin-1",
 }
 
 # Separador dos CSVs do TSE
